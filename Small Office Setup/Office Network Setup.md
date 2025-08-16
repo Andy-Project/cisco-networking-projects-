@@ -30,6 +30,9 @@
 
 I decided the WRT300N router would be an access point. 
 
+
+
+
 # Assign IP Addresses & Configure Subnetting
 
 - Cisco 1941 Router → Switch

@@ -49,10 +49,6 @@ Role: Default gateway for all devices on the 192.168.1.0/24 network
 
 ![1941 Router](images/image2.jpg)
 
-Learning Note:
-- 192.168.1.1 is a Class C private IP address. The router is usually assigned the first IP address, and other devices receive addresses such as 192.168.10, etc. I learned that Class C is more common (many consumer routers use this range by default) since it provides 254 usable IP addresses, which is plenty for most small offices/home networks. While using another class, like A, is possible, it’ll waste IPs. You get a huge number of IP addresses (over 16 million usable in 10.0.0.0/8), which is overkill for a small office.
-
-
 - After setting up the router, I manually assigned each device:
     - its own IP
     - the subnet mask

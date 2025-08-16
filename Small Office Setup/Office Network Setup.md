@@ -30,7 +30,7 @@
 
 I decided the WRT300N router would be an access point. 
 
-![[Logical topology]](Small Office Setup/images/image1.jpg)
+![Logical topology](Small Office Setup/images/image1.jpg)
 
 
 # Assign IP Addresses & Configure Subnetting

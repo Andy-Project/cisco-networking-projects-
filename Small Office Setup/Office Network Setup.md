@@ -106,6 +106,12 @@ Approximate round trip times in milli-seconds:
 - Security: WPA2-PSK (WPA2 Personal)  
 - Password: @OfficeProject
 
+![AP](images/image4.jpg)
+
 - Verification:
   - Connected the laptop to the wireless network using the SSID and password.  
   - Confirmed connectivity to the main network.
+
+ ![APv](images/image5.jpg)
+
+ 

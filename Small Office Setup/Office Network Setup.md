@@ -1,4 +1,4 @@
-# Initial
+# Initial Setup
 
 - Cisco 1941 Router → Switch
     - Connected GigabitEthernet0/0 → FastEthernet0/1 on switch.

@@ -16,17 +16,18 @@
 
 1. I began by configuring the Cisco 1941 router, which will serve as the default gateway for all devices on the network. To this I:
 
-    - A) Navigated to: Config > Interface > GigabitEthernet0/0
+A) Navigated to: Config > Interface > GigabitEthernet0/0
         - The router is connected from its GigabitEthernet0/0 port to the FastEthernet0/1 port on the switch.
       
-    - B) Assigned the IPv4 Address: 192.168.1.1
+ B) Assigned the IPv4 Address: 192.168.1.1
 
 192.168.1.1 is a Class C private IP address. The router is usually assigned the first IP address, and other devices receive addresses such as 192.168.10, etc. I learned that Class C is more common (many consumer routers use this range by default) since it provides 254 usable IP addresses, which is plenty for most small offices/home networks. While using another class, like A, is possible, it’ll waste IPs. You get a huge number of IP addresses (over 16 million usable in 10.0.0.0/8), which is overkill for a small office.
 
-- C) Subnet Mask: 255.255.255.0
+C) Subnet Mask: 255.255.255.0
 
-- D) Enabled the interface by typing in “no shutdown” in the CLI (turned the port ON)
+D) Enabled the interface by typing in “no shutdown” in the CLI (turned the port ON)
 
 This configuration makes the router the central point of communication for all connected devices within the 192.168.1.0/24 network.
 ![image2](https://github.com/user-attachments/assets/8c429035-6c52-401d-b7e0-7d622a300c57)
 
+2. 

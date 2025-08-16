@@ -65,12 +65,7 @@ The goal was to create a realistic office network topology that follows best pra
 ## 🛠 Tools Used
 - Cisco Packet Tracer
 - Cisco IOS CLI
-- Windows Command Prompt (`ping`, `nslookup`, `ftp`)
+- Command Prompts (`ping`, `nslookup`, `ftp`)
 
----
+The file, where I documented everything step-by-step and showed the full process, is attached. 
 
-## 🚀 How to Use
-1. Download the `.pkt` file from this repository.
-2. Open in **Cisco Packet Tracer**.
-3. Follow the PDF documentation to review configurations.
-4. Test connectivity using provided IPs and services.

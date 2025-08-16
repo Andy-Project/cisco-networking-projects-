@@ -70,3 +70,9 @@ Learning Note:
 | Server   | 192.168.1.100 | 255.255.255.0  | 192.168.1.1    |
 
 
+
+
+- Interface of PC0
+
+![PC0-Static](images/image3.jpg)
+

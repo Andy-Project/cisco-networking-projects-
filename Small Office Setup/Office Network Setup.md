@@ -18,7 +18,7 @@
 
         - Creates a separate subnet (e.g., 192.168.2.x)
 
-    2. Access Point Mode (Same Subnet) 
+    2. Access Point Mode (Same Subnet)
 
         - Connect LAN port → switch
 
@@ -93,3 +93,19 @@ Ping statistics for 192.168.1.1:
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 4ms, Average = 2ms
 ```
+
+# Wireless Router/Access Point Configuration
+
+- Mode: Access Point (LAN interface)  
+- IP Address: 192.168.1.2  
+- Subnet Mask: 255.255.255.0  
+- Default Gateway: 192.168.1.1  
+- DHCP: Disabled (configured via GUI)
+
+- SSID: Office Wifi  
+- Security: WPA2-PSK (WPA2 Personal)  
+- Password: @OfficeProject
+
+- Verification:
+  - Connected the laptop to the wireless network using the SSID and password.  
+  - Confirmed connectivity to the main network.

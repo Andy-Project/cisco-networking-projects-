@@ -10,4 +10,4 @@
 
    B) If the goal is to use it as a wireless access point (AP) — extending the main wired network without routing — I should connect one of the LAN (Ethernet)         ports to the switch, disable its DHCP server, and assign it a static IP in the same range (e.g., 192.168.1.2).
 
-![Network Topology](images/image_1.png)
+![Network Diagram](images/image1.png)

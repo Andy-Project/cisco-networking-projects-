@@ -74,11 +74,3 @@ The goal was to create a realistic office network topology that follows best pra
 2. Open in **Cisco Packet Tracer**.
 3. Follow the PDF documentation to review configurations.
 4. Test connectivity using provided IPs and services.
-
----
-
-## 📜 Author
-**Your Name**  
-Aspiring Network & Cybersecurity Professional  
-[LinkedIn Profile](https://linkedin.com/in/your-profile) | [Portfolio](https://your-portfolio-link)
-

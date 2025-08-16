@@ -67,5 +67,3 @@ The goal was to create a realistic office network topology that follows best pra
 - Cisco IOS CLI
 - Command Prompts (`ping`, `nslookup`, `ftp`)
 
-The file, where I documented everything step-by-step and showed the full process, is attached. 
-

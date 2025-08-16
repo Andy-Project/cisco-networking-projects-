@@ -56,7 +56,7 @@ The goal was to create a realistic office network topology that follows best pra
 ---
 
 ## 📂 Repository Contents
-- `Office_Network_Setup.pdf` – Full documentation with step-by-step configuration & troubleshooting
+- `Office Network Setup` – Full documentation with step-by-step configuration & troubleshooting
 - `Office_Network.pkt` – Cisco Packet Tracer project file
 - `images/` – Network topology diagrams & screenshots
 

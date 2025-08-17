@@ -249,6 +249,21 @@ Minimum = 0ms, Maximum = 1ms, Average = 0ms
 
 - Created user account and configured permissions.
 
+![FTP](images/image7.jpg)
 
+2. Testing FTP
+
+```
+C:\> ftp 192.168.1.57
+Trying to connect...192.168.1.57
+Connected to 192.168.1.57
+220- Welcome to PT Ftp server
+Username: tester
+331- Username ok, need password
+Password: ****
+230- Logged in
+ftp>
+```
+- Successfully connected, verifying FTP service is functional.
 
 

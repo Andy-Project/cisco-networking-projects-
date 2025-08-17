@@ -112,4 +112,57 @@ Approximate round trip times in milli-seconds:
 
 # DHCP Configuration
 
+1. Initial DHCP Configuration
 
+```
+Router> enable
+Router# configure terminal
+Router(config)# ip dhcp pool OfficePool
+Router(dhcp-config)# network 192.169.1.0 255.255.255.0
+Router(dhcp-config)# default-router 192.169.1.1
+Router(dhcp-config)# dns-server 8.8.8.8
+Router(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.49
+Router(config)# end
+Router# write memory
+```
+- Created a DHCP pool.
+- Set the default gateway (router).
+- Added Google DNS (8.8.8.8).
+- Excluded static IP range (192.168.1.1 – 192.168.1.49).
+
+When I tried switching PC0 to DHCP I encountered an error:
+
+Issue: Devices received an APIPA address (169.254.x.x), meaning DHCP failed.
+Cause: I mistakenly entered 192.169.x.x instead of 192.168.x.x.
+
+2. Correcting the configuration
+
+Router> enable
+Router# configure terminal
+Router(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.49
+Router(config)# ip dhcp pool OfficePool
+Router(dhcp-config)# network 192.168.1.0 255.255.255.0
+Router(dhcp-config)# default-router 192.168.1.1
+Router(dhcp-config)# dns-server 8.8.8.8
+Router(dhcp-config)# exit
+Router(config)# end
+Router# write memory
+
+- Corrected network/subnet.
+- DHCP now assigns addresses correctly.
+- Verified with PC0 (received 192.168.1.51) and confirmed connectivity via ping 192.168.1.1.
+```
+C:\>ping 192.168.1.1
+
+Pinging 192.168.1.1 with 32 bytes of data:
+
+Reply from 192.168.1.1: bytes=32 time<1ms TTL=255
+Reply from 192.168.1.1: bytes=32 time<1ms TTL=255
+Reply from 192.168.1.1: bytes=32 time<1ms TTL=255
+Reply from 192.168.1.1: bytes=32 time<1ms TTL=255
+
+Ping statistics for 192.168.1.1:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 0ms, Average = 0ms
+```

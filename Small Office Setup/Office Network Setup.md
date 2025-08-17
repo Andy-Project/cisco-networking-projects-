@@ -268,4 +268,246 @@ ftp>
 
 # VLAN (Static Configuration)
 
+1: Configure VLANs on the Switch
 
+- Created two VLANs:
+
+	- Sales: VLAN 10
+
+	- Marketing: VLAN 20
+
+![VLAN](images/image8.jpg)
+
+2. Assign switch ports to VLANs
+
+```
+# Sales Department (VLAN 10)
+Switch(config)#interface range fastEthernet 0/2 - 4
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+Switch(config-if-range)#exit
+
+# Marketing Department (VLAN 20)
+Switch(config)#interface range fastEthernet 0/5 - 6
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 20
+Switch(config-if-range)#exit
+```
+
+3. Configure Inter-VLAN Routing
+
+1.  Configure Switch Trunk Port
+
+```
+Switch(config)#interface gigabitEthernet 0/1
+Switch(config-if)#switchport mode trunk
+
+Switch(config-if)#
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to down
+
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/1, changed state to up
+```
+
+2. Configure Router Subinterfaces
+
+| VLAN | Subinterface | IP Address   | Subnet        |
+| ---- | ------------ | ------------ | ------------- |
+| 10   | Gi0/0.10     | 192.168.10.1 | 255.255.255.0 |
+| 20   | Gi0/0.20     | 192.168.20.1 | 255.255.255.0 |
+
+- VLAN 10 
+
+```
+Router>enable
+Router#configure terminal
+Router(config)#interface gigabitethernet 0/0.10
+Router(config-subif)#encapsulation dot1Q 10
+Router(config-subif)#ip address 192.168.10.1 255.255.255.0
+Router(config-subif)#exit
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.10, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.10, changed state to up
+```
+
+VLAN 20
+```
+Router(config)#interface gigabitEthernet 0/0.20
+Router(config-subif)#encapsulation dot1Q 20
+Router(config-subif)#ip address 192.168.20.1 255.255.255.0
+Router(config-subif)#exit
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.20, changed state to up
+%LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet0/0.20, changed state to up
+```
+
+4: Configure PCs & Connectivity Testing
+
+1. Manually assign IP addresses and default gateways
+
+| PC  | Port   | VLAN | IP Address      | Subnet Mask      | Default Gateway |
+|-----|--------|------|----------------|----------------|----------------|
+| PC0 | Fa0/2  | 10   | 192.168.10.10  | 255.255.255.0  | 192.168.10.1   |
+| PC1 | Fa0/3  | 10   | 192.168.10.11  | 255.255.255.0  | 192.168.10.1   |
+| PC2 | Fa0/4  | 10   | 192.168.10.12  | 255.255.255.0  | 192.168.10.1   |
+| PC3 | Fa0/5  | 20   | 192.168.20.10  | 255.255.255.0  | 192.168.20.1   |
+| PC4 | Fa0/6  | 20   | 192.168.20.11  | 255.255.255.0  | 192.168.20.1   |
+
+2. Connectivity Testing 
+
+- Intra-VLAN Communication
+  - VLAN 10 (Sales Department): All PCs successfully communicated with each other.  
+  - VLAN 20 (Marketing Department): All PCs successfully communicated with each other.
+
+- Inter-VLAN Communication
+  - Sales and Marketing PCs successfully communicated across VLANs, confirming proper inter-VLAN routing and default gateway configuration.
+
+3. Connect Additional Devices and Test Connectivity
+
+Connect the Laptop to VLAN 20 (Marketing Department)
+
+- Laptop connected via wireless router on switch port Fa0/7, configured in access mode for VLAN 20.  
+- Manually assigned IP settings:  
+  - IP Address: 192.168.20.55  
+  - Subnet Mask: 255.255.255.0  
+  - Default Gateway: 192.168.20.1  
+
+- Connectivity Tests:
+  - Ping to Marketing Department PC (192.168.20.10): Successful  
+  - Ping to Sales Department PC (192.168.10.10): Successful  
+
+4. Connect Office Printer to VLAN 10 (Sales Department)
+
+- Printer connected to switch port Fa0/8, configured in access mode for VLAN 10.  
+- Assigned IP settings:  
+  - IP Address: 192.168.10.50  
+  - Subnet Mask: 255.255.255.0  
+  - Default Gateway: 192.168.10.1  
+
+- Connectivity Test: 
+  - Ping from Sales Department PC: Successful
+
+
+# VLAN (DHCP Configuration)
+
+1. Exclude IP addresses from DHCP pools
+- Prevent the router from assigning IPs that are already statically assigned
+
+```
+Router(config)#ip dhcp excluded-address 192.168.10.1 192.168.10.49
+Router(config)#ip dhcp excluded-address 192.168.20.1 192.168.20.49
+```
+
+2. Create a DHCP pool for each VLAN
+
+
+```
+Router(config)#ip dhcp pool VLAN10
+Router(dhcp-config)#network 192.168.10.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.10.1
+Router(dhcp-config)#dns-server 8.8.8.8
+
+Router(config)#ip dhcp pool VLAN20
+Router(dhcp-config)#network 192.168.20.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.20.1
+Router(dhcp-config)#dns-server 8.8.8.8
+
+Router(dhcp-config)#end
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+```
+
+3.  Switched all devices to DHCP & tested the connection
+
+- Verified that all devices obtained the correct IP Addresses
+
+- All devices were able to communicate with other devices in their VLAN and across VLANs:  
+	- Ping from VLAN 20 device to VLAN 20 device: Successful  
+	- Ping from VLAN 20 device to VLAN 10 device: Successful  
+	- Initial ping to 192.168.20.50 had one packet loss, but subsequent tests were successful, confirming stable connectivity.  
+
+4. Configure DHCP to Use Office DNS Server
+
+1. Change the DNS server for VLAN 10 
+
+```
+Router#enable
+Router#configure terminal
+Router(config)#ip dhcp pool VLAN10
+Router(dhcp-config)#dns-server 192.168.1.57
+```
+
+2. Change the DNS Server for VLAN 20
+
+```
+Router(config)#ip dhcp pool VLAN20
+Router(dhcp-config)#dns-server 192.168.1.57
+Router(dhcp-config)#exit
+```
+
+5: Configure VLAN for Office Server
+
+1. Create VLAN 25 on the switch
+- VLAN ID: 25  
+- Name: OfficeServer  
+- Assign switch port Fa0/9 (connected to the server) to VLAN 25 in access mode.
+
+2. Create a Subinterface for VLAN 25 on the router
+
+```
+Router>enable
+Router#configure terminal
+Router(config)#interface gigabitEthernet 0/0.25
+Router(config-subif)#encapsulation dot1Q 25
+Router(config-subif)#ip address 192.168.25.1 255.255.255.0
+Router(config-subif)#no shutdown
+Router(config-subif)#exit
+```
+
+6: Configure DHCP for Office Server VLAN (VLAN 25)
+
+1. Exclude IP addresses from the DHCP pool
+- Prevent the router from assigning addresses reserved for the server or other static devices:
+
+```
+Router#enable
+Router#configure terminal
+Router(config)#ip dhcp excluded-address 192.168.25.1 192.168.25.10
+```
+
+2. Create a DHCP pool for VLAN 25
+
+```
+Router(config)#ip dhcp pool VLAN25
+Router(dhcp-config)#network 192.168.25.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.25.1
+Router(dhcp-config)#dns-server 8.8.8.8
+Router(dhcp-config)#exit
+Router(config)#end
+Router#write memory
+```
+
+7: Test Office Server and Update DNS Settings
+
+- Verify connectivity to Office Server (VLAN 25)
+  - Ping from a PC to the server (192.168.25.11) was successful.
+  - Confirms network connectivity and DHCP assignment.
+
+- Update DNS settings in VLAN DHCP pools
+  - VLAN 10 and VLAN 20 DHCP pools updated to use the internal office server as DNS:
+
+```
+Router#configure terminal
+Router(config)#ip dhcp pool VLAN10
+Router(dhcp-config)#dns-server 192.168.25.11
+Router(dhcp-config)#ip dhcp pool VLAN20
+Router(dhcp-config)#dns-server 192.168.25.11
+Router(dhcp-config)#end
+```
+
+Encountered issue:
+
+- Cause: Initial ping to printer.local failed because devices were still using Google DNS (8.8.8.8).
+
+- Fix: Resolved by manually releasing and renewing IP addresses on each PC and power-cycling the printer.
+
+- Pinged internal hostnames to verify resolution:
+	- server.local: Successful
+	- printer.local: Successful

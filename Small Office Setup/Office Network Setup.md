@@ -266,4 +266,6 @@ ftp>
 ```
 - Successfully connected, verifying FTP service is functional.
 
+# VLAN (Static Configuration)
+
 

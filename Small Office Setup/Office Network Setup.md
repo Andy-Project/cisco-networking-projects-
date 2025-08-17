@@ -166,3 +166,17 @@ Ping statistics for 192.168.1.1:
 Approximate round trip times in milli-seconds:
     Minimum = 0ms, Maximum = 0ms, Average = 0ms
 ```
+
+# Network Services on the Server
+
+## DNS Service
+
+1. Configuration
+
+Enabled the DNS service on the server.
+
+- Added DNS entries:
+- server.local → 192.168.1.57
+- printer.local → 192.168.1.56
+
+
